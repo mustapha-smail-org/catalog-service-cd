@@ -18,9 +18,9 @@ spring:
     default-timeout: 10s
 
   datasource:
-    url: jdbc:postgresql://%%SECRET:DATABASE_HOST:%%SECRET:DATABASE_PORT/%%SECRET:DATABASE_NAME
-    username: "%%SECRET:DATABASE_USERNAME"
-    password: "%%SECRET:DATABASE_PASSWORD"
+    url: "jdbc:postgresql://%%SECRET:DATABASE_HOST%%:%%SECRET:DATABASE_PORT%%/%%SECRET:DATABASE_NAME%%"
+    username: "%%SECRET:DATABASE_USERNAME%%"
+    password: "%%SECRET:DATABASE_PASSWORD%%"
     driver-class-name: org.postgresql.Driver
     hikari:
       connection-timeout: 5000
@@ -80,11 +80,11 @@ app:
     ca-certificate: file:/etc/secrets/ca.pem
 
     topic:
-      events: "%%SECRET:KAFKA_EVENTS_TOPIC"
-      events-dlt: "%%SECRET:KAFKA_EVENTS_DLT_TOPIC"
+      events: "%%SECRET:KAFKA_EVENTS_TOPIC%%"
+      events-dlt: "%%SECRET:KAFKA_EVENTS_DLT_TOPIC%%"
 
     consumer:
-      group-id: "%%SECRET:KAFKA_CONSUMER_GROUP_ID"
+      group-id: "%%SECRET:KAFKA_CONSUMER_GROUP_ID%%"
       auto-offset-reset: earliest
       concurrency: 1
       auto-startup: true
@@ -94,7 +94,7 @@ app:
       backoff-ms: 2000
 
     schema-registry:
-      url: "%%SECRET:SCHEMA_REGISTRY_URL"
-      username: "%%SECRET:SCHEMA_REGISTRY_USERNAME"
-      password: "%%SECRET:SCHEMA_REGISTRY_PASSWORD"
+      url: "%%SECRET:SCHEMA_REGISTRY_URL%%"
+      username: "%%SECRET:SCHEMA_REGISTRY_USERNAME%%"
+      password: "%%SECRET:SCHEMA_REGISTRY_PASSWORD%%"
       auto-register-schemas: false
