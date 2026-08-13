@@ -108,10 +108,17 @@ jobs:
           CONFIG_FILE: config/application-${{ inputs.environment }}.yaml
           CONFIG_FILE_NAME: application.yaml
           # External secrets:
+          SECRET_DATABASE_HOST: ${{ inputs.environment == 'production' && secrets.DATABASE_HOST_PRD || secrets.DATABASE_HOST_HPR }}
+          SECRET_DATABASE_PORT: ${{ inputs.environment == 'production' && secrets.DATABASE_PORT_PRD || secrets.DATABASE_PORT_HPR }}
+          SECRET_DATABASE_NAME: ${{ inputs.environment == 'production' && secrets.DATABASE_NAME_PRD || secrets.DATABASE_NAME_HPR }}
+          SECRET_DATABASE_USERNAME: ${{ inputs.environment == 'production' && secrets.DATABASE_USERNAME_PRD || secrets.DATABASE_USERNAME_HPR }}
+          SECRET_DATABASE_PASSWORD: ${{ inputs.environment == 'production' && secrets.DATABASE_PASSWORD_PRD || secrets.DATABASE_PASSWORD_HPR }}
           SECRET_KAFKA_BOOTSTRAP_SERVERS: ${{ inputs.environment == 'production' && secrets.KAFKA_BOOTSTRAP_SERVERS_PRD || secrets.KAFKA_BOOTSTRAP_SERVERS_HPR }}
           SECRET_KAFKA_USERNAME: ${{ inputs.environment == 'production' && secrets.KAFKA_USERNAME_PRD || secrets.KAFKA_USERNAME_HPR }}
           SECRET_KAFKA_PASSWORD: ${{ inputs.environment == 'production' && secrets.KAFKA_PASSWORD_PRD || secrets.KAFKA_PASSWORD_HPR }}
           SECRET_KAFKA_EVENTS_TOPIC: ${{ inputs.environment == 'production' && secrets.KAFKA_EVENTS_TOPIC_PRD || secrets.KAFKA_EVENTS_TOPIC_HPR }}
+          SECRET_KAFKA_EVENTS_DLT_TOPIC: ${{ inputs.environment == 'production' && secrets.KAFKA_EVENTS_DLT_TOPIC_PRD || secrets.KAFKA_EVENTS_DLT_TOPIC_HPR }}
+          SECRET_KAFKA_CONSUMER_GROUP_ID: ${{ inputs.environment == 'production' && secrets.KAFKA_CONSUMER_GROUP_ID_PRD || secrets.KAFKA_CONSUMER_GROUP_ID_HPR }}
           SECRET_SCHEMA_REGISTRY_URL: ${{ inputs.environment == 'production' && secrets.SCHEMA_REGISTRY_URL_PRD || secrets.SCHEMA_REGISTRY_URL_HPR }}
           SECRET_SCHEMA_REGISTRY_USERNAME: ${{ inputs.environment == 'production' && secrets.SCHEMA_REGISTRY_USERNAME_PRD || secrets.SCHEMA_REGISTRY_USERNAME_HPR }}
           SECRET_SCHEMA_REGISTRY_PASSWORD: ${{ inputs.environment == 'production' && secrets.SCHEMA_REGISTRY_PASSWORD_PRD || secrets.SCHEMA_REGISTRY_PASSWORD_HPR }}

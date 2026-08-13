@@ -5,10 +5,71 @@ spring:
     active: staging
   application:
     name: catalog-service
+
+  mvc:
+    problemdetails:
+      enabled: true
+
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+  transaction:
+    default-timeout: 10s
+
+  datasource:
+    url: jdbc:postgresql://%%SECRET:DATABASE_HOST:%%SECRET:DATABASE_PORT/%%SECRET:DATABASE_NAME
+    username: "%%SECRET:DATABASE_USERNAME"
+    password: "%%SECRET:DATABASE_PASSWORD"
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 3000
+      maximum-pool-size: 10
+      minimum-idle: 2
+      max-lifetime: 1800000
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      jakarta.persistence.query.timeout: 5000
+      hibernate:
+        jdbc:
+          time_zone: UTC
+        format_sql: false
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 log:
   level:
     root: INFO
     app: INFO
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - prometheus
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+        add-additional-paths: true
+      show-details: never
+      group:
+        liveness:
+          include:
+            - livenessState
+        readiness:
+          include:
+            - readinessState
+            - db
+
+  metrics:
+    tags:
+      application: catalog-service
 app:
   kafka:
     bootstrap-servers: "%%SECRET:KAFKA_BOOTSTRAP_SERVERS%%"
@@ -19,20 +80,21 @@ app:
       ca-certificate-path: file:/etc/secrets/ca.pem
 
     topic:
-      events: "%%SECRET:KAFKA_EVENTS_TOPIC%%"
+      events: "%%SECRET:KAFKA_EVENTS_TOPIC"
+      events-dlt: "%%SECRET:KAFKA_EVENTS_DLT_TOPIC"
+
+    consumer:
+      group-id: "%%SECRET:KAFKA_CONSUMER_GROUP_ID"
+      auto-offset-reset: earliest
+      concurrency: 1
+      auto-startup: true
+
+    retry:
+      max-attempts: 3
+      backoff-ms: 2000
 
     schema-registry:
-      url: "%%SECRET:SCHEMA_REGISTRY_URL%%"
-      username: "%%SECRET:SCHEMA_REGISTRY_USERNAME%%"
-      password: "%%SECRET:SCHEMA_REGISTRY_PASSWORD%%"
-      auto-register-schemas: true
-api:
-  opendata:
-    paris:
-      base-url: https://opendata.paris.fr
-      dataset-id: que-faire-a-paris-
-      whereClause: ""
-ingestion:
-  schedule:
-    cron: "0 */15 * * * *"
-    zone: "Europe/Paris"
+      url: "%%SECRET:SCHEMA_REGISTRY_URL"
+      username: "%%SECRET:SCHEMA_REGISTRY_USERNAME"
+      password: "%%SECRET:SCHEMA_REGISTRY_PASSWORD"
+      auto-register-schemas: false
