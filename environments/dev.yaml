@@ -4,8 +4,8 @@
 # until the first deployment runs — do not edit them by hand.
 environment: dev
 image:
-  tag: unset
-  digest: "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+  tag: sha-eba8332
+  digest: "sha256:0079f9e5668fdecdbe731d646cd899ce9a8cf11a8890a7a405e74b2e6ad56b8a"
 source:
   repository: mustapha-smail-org/catalog-service
-  commit: "0000000"
+  commit: "eba83321fe4fd0a3dd6e823e489ba57eb272c257"
