@@ -1,0 +1,11 @@
+apiVersion: delivery.citypulse.io/v1
+kind: ServiceDeployment
+metadata:
+  name: catalog-service
+  owner: data-platform
+spec:
+  provider: render
+  imageRepository: ghcr.io/mustapha-smail-org/catalog-service
+  health:
+    path: /actuator/health/readiness
+    timeoutSeconds: 300
