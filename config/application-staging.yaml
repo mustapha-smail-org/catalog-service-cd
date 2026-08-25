@@ -72,6 +72,8 @@ management:
     tags:
       application: catalog-service
 app:
+  admin:
+    token: "%%SECRET:ADMIN_API_TOKEN%%"
   kafka:
     bootstrap-servers: "%%SECRET:KAFKA_BOOTSTRAP_SERVERS%%"
     username: "%%SECRET:KAFKA_USERNAME%%"
