@@ -41,6 +41,14 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  ai:
+    model:
+      chat: openai
+    openai:
+      api-key: "%%SECRET:OPENAI_API_KEY%%"
+      chat:
+        options:
+          model: gpt-5.6-luna
 log:
   level:
     root: INFO
@@ -74,6 +82,15 @@ management:
 app:
   admin:
     token: "%%SECRET:ADMIN_API_TOKEN%%"
+  enrichment:
+    enabled: true
+    dry-run: false
+    batch-size: 50
+    max-retries: 2
+    prompt-version: 1
+    model: gpt-5.6-luna
+    interval-ms: 300000
+    initial-delay-ms: 60000
   kafka:
     bootstrap-servers: "%%SECRET:KAFKA_BOOTSTRAP_SERVERS%%"
     username: "%%SECRET:KAFKA_USERNAME%%"

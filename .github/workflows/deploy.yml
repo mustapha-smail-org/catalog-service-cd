@@ -115,6 +115,7 @@ jobs:
       SECRET_SCHEMA_REGISTRY_USERNAME: ${{ inputs.environment == 'production' && secrets.SCHEMA_REGISTRY_USERNAME_PRD || secrets.SCHEMA_REGISTRY_USERNAME_HPR }}
       SECRET_SCHEMA_REGISTRY_PASSWORD: ${{ inputs.environment == 'production' && secrets.SCHEMA_REGISTRY_PASSWORD_PRD || secrets.SCHEMA_REGISTRY_PASSWORD_HPR }}
       SECRET_ADMIN_API_TOKEN: ${{ inputs.environment == 'production' && secrets.ADMIN_API_TOKEN_PRD || secrets.ADMIN_API_TOKEN_HPR }}
+      SECRET_OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
 
     steps:
       - name: Checkout
