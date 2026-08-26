@@ -4,8 +4,8 @@
 # production promotion — do not edit them directly on main without review.
 environment: production
 image:
-  tag: v0.1.4
-  digest: "sha256:795d6e36199b595f3deb89041de75dc59be2c1898de0f1386afb771651567aef"
+  tag: v1.0.6
+  digest: "sha256:94101faeb8422418c83f3ec90d1ac51320c20cdd4390c7b39fb1333081949e19"
 source:
   repository: mustapha-smail-org/catalog-service
-  commit: "d5a59bab67cebd9d98b889251640b29725c09b9d"
+  commit: "56b3bff77af4f78332283fee8979a9b70a2c5f7c"
